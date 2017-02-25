@@ -23,11 +23,11 @@ def get_ip(ifname):
   except:
     return None
 
-def send_message(client, twilio_number, numbers, ip_address ):
+def send_message(client, twilio_number, numbers, body ):
   for number in numbers:
     message = client.sms.messages.create(to= number,
                                          from_=twilio_number,
-                                         body=ip_address)
+                                         body=body)
 
 def load_twilio_config():
   config = {}
@@ -42,16 +42,18 @@ def load_twilio_config():
   return twilio_sid, twilio_token, twilio_number
 
 def main():
+  max_tries = 20
+  numbers   = ['+12818657476']
+  links     = ['wlan0','eth0']
   twilio_sid, twilio_token, twilio_number = load_twilio_config()
   client = TwilioRestClient(twilio_sid, twilio_token)
-  max_tries = 20
-  numbers = ['+12818657476']
   for i in range(0, max_tries):
-    ip_address = get_ip('wlan0')
-    if ip_address is not None:
-      write_to_log(twilio_number+' '+ip_address)
-      send_message(client, twilio_number, numbers, ip_address)
-      sys.exit()
+    for link in links:
+      ip_address = get_ip(link)
+      if ip_address is not None:
+        write_to_log(twilio_number+' '+ip_address)
+        send_message(client, twilio_number, numbers, '\n'+link +': '+ip_address)
+        sys.exit()
     time.sleep(1)
 
 if __name__ == "__main__": main()

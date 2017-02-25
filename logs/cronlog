@@ -1,0 +1,9 @@
+sh: 0: Can't open config.sh
+Traceback (most recent call last):
+  File "ip.py", line 56, in <module>
+    if __name__ == "__main__": main()
+  File "ip.py", line 44, in main
+    twilio_sid, twilio_token, twilio_number = load_twilio_config()
+  File "ip.py", line 34, in load_twilio_config
+    twilio_sid    = config.TWILIO_SID
+AttributeError: 'module' object has no attribute 'TWILIO_SID'

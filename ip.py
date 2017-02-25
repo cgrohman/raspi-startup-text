@@ -7,6 +7,7 @@ import socket
 import fcntl
 import struct
 
+
 def write_to_log(text):
   with open('logs/runtime.log','a+') as file:
     file.write(text+'\n')
@@ -29,11 +30,13 @@ def send_message(client, twilio_number, numbers, ip_address ):
                                          body=ip_address)
 
 def load_twilio_config():
-  twilio_sid    = <Twilio SID>
-  twilio_token  = <Twilio Token>
-  twilio_number = <Twilio Phone Number>
+  config = {}
+  execfile('config.py', config)
 
-  write_to_log('{} {} {}'.format(twilio_sid, twilio_token, twilio_number))
+  twilio_sid    = config['TWILIO_SID']
+  twilio_token  = config['TWILIO_TOKEN']
+  twilio_number = config['TWILIO_NUMBER']
+
   if not all([twilio_sid, twilio_token, twilio_number]):
     write_to_log('Could not load twilio config')
   return twilio_sid, twilio_token, twilio_number

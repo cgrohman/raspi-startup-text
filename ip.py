@@ -29,12 +29,9 @@ def send_message(client, twilio_number, numbers, ip_address ):
                                          body=ip_address)
 
 def load_twilio_config():
-  #twilio_sid    = os.environ.get('TWILIO_SID')
-  #twilio_token  = os.environ.get('TWILIO_TOKEN')
-  #twilio_number = os.environ.get('TWILIO_NUMBER')
-  twilio_sid    = 'AC54d37ad03312174794709e6bb4851e08'
-  twilio_token  = '353cf7858e55ff89176458923cccb224'
-  twilio_number = '+12819035951'
+  twilio_sid    = <Twilio SID>
+  twilio_token  = <Twilio Token>
+  twilio_number = <Twilio Phone Number>
 
   write_to_log('{} {} {}'.format(twilio_sid, twilio_token, twilio_number))
   if not all([twilio_sid, twilio_token, twilio_number]):

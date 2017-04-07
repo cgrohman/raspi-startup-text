@@ -3,6 +3,7 @@
 Steps to run:
  - Must have wlan0 configured for auto connection
  - edit launcher.sh to have correct directory structure
+ - install needed python packages: "pip install -r requirements.txt"
  - chmod 755 launcher.sh
  - run: "sudo crontab -e" and add the following:
      @reboot sh /home/pi/launcher.sh >/home/pi/startup/logs/cronlog 2>&1
